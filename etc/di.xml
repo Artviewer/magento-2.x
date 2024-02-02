@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="RozetkaPay\RozetkaPay\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="RozetkaPay\RozetkaPay\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">rozetkaLogHandler</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">RozetkaPay\RozetkaPay\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="RozetkaPayAdapter" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="string">rozetkapay</argument>
+            <argument name="valueHandlerPool" xsi:type="object">RozetkaPayValueHandlerPool</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">RozetkaPay\RozetkaPay\Block\Info</argument>
+            <argument name="commandPool" xsi:type="object">RozetkaPayGatewayCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RozetkaPayValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">RozetkaPayConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RozetkaPayConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">RozetkaPayGatewayConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RozetkaPayGatewayConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">rozetkapay</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RozetkaPayGatewayCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="RozetkaPay\RozetkaPay\Api\CallbackInterface" type="RozetkaPay\RozetkaPay\Model\Gateway\Response\Callback" />
+    <type name="Magento\Sales\Model\Service\CreditmemoService">
+        <plugin name="rozetkapay_refund"
+                type="RozetkaPay\RozetkaPay\Plugin\Refund"/>
+    </type>
+</config>

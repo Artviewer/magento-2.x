@@ -1,0 +1,18 @@
+{
+  "name": "rozetka-pay/module-rozetka-pay",
+  "version": "1.0.0",
+  "description": "RozetkaPay - payment gateway for Magento 2",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "magento/module-payment": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "RozetkaPay\\RozetkaPay\\": ""
+    }
+  }
+}

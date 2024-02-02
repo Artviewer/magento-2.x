@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <rozetkapay>
+                <payment_action>order</payment_action>
+                <model>RozetkaPayAdapter</model>
+                <active>1</active>
+                <title>RozetkaPay</title>
+                <order_status>pending_payment</order_status>
+                <can_use_checkout>1</can_use_checkout>
+                <can_refund>1</can_refund>
+                <is_offline>0</is_offline>
+                <description>You will be redirected to RozetkaPay after order place.</description>
+                <sandbox>1</sandbox>
+                <api_url>https://api.rozetkapay.com/</api_url>
+                <sandbox_api_url>https://api.rozetkapay.com/</sandbox_api_url>
+                <shop_id>a6a29002-dc68-4918-bc5d-51a6094b14a8</shop_id>
+                <sandbox_shop_id>a6a29002-dc68-4918-bc5d-51a6094b14a8</sandbox_shop_id>
+                <shop_pass>XChz3J8qrr</shop_pass>
+                <sandbox_shop_pass>XChz3J8qrr</sandbox_shop_pass>
+            </rozetkapay>
+        </payment>
+    </default>
+</config>

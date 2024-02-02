@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var \RozetkaPay\RozetkaPay\Block\Info $block
+ * @see \Magento\Payment\Block\Info
+ */
+$specificInfo = $block->getSpecificInformation();
+$paymentTitle = $block->getMethod()->getConfigData('title', $block->getInfo()->getOrder()->getStoreId());
+?>
+<?= $block->escapeHtml($paymentTitle) ?>
+<?php if ($specificInfo): ?>
+
+    <table class="data-table admin__table-secondary">
+        <?php foreach ($specificInfo as $blockLabel => $blockValues): ?>
+            <tr>
+                <th colspan="2" class="admin__page-section-item-title">
+                    <span class="title"><?= __($block->escapeHtml($blockLabel)) ?></span>
+                </th>
+            </tr>
+            <?php foreach ($blockValues as $label => $value): ?>
+                <tr>
+                    <th><?= __($block->escapeHtml($label)) ?>:</th>
+                    <td>
+                        <?= $block->escapeHtml(
+                            nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true))))
+                        ) ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+<?= $block->getChildHtml() ?>
