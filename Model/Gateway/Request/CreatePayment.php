@@ -56,6 +56,8 @@ class CreatePayment extends GatewayAbstract
     private function prepareData($order)
     {
         $address = $order->getBillingAddress();
+        $telephone = $address->getTelephone();
+        $telephone = preg_replace("/[^0-9]/", "", $telephone);
         $customerData = [
             'address' => implode(',', $address->getStreet()),
             'city' => $address->getCity(),
@@ -63,13 +65,16 @@ class CreatePayment extends GatewayAbstract
             'email' => $address->getEmail(),
             'first_name' => $address->getFirstName(),
             'last_name' => $address->getLastName(),
-            'phone' => $address->getTelephone()
+            'phone' => $telephone
         ];
         if ($customer = $order->getCustomer()) {
             $customerData['external_id'] = $customer->getId();
         }
-        $currency = $order->getCurrency();
+        $currency = $order->getBaseCurrencyCode();
         $orderId = $order->getId();
+        $incrementId = $order->getIncrementId();
+        $requestDescription = $this->rozetkaConfig->getRequestDescription();
+        $requestDescription = str_replace('{order_number}', $incrementId, $requestDescription);
         if($this->rozetkaConfig->isSandboxMode()) {
             $currency = 'UAH';
             $orderId = $order->getId() . self::SANDBOX_ORDER_MASK;
@@ -80,6 +85,7 @@ class CreatePayment extends GatewayAbstract
             'result_url' => $this->urlBuilder->getUrl(self::SUCCESS),
             'currency' => $currency,
             'customer' => $customerData,
+            'description' => $requestDescription,
             'external_id' => $orderId,
             'mode' => 'hosted'
         ];
