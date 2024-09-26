@@ -65,6 +65,11 @@
                         <field id="sandbox">1</field>
                     </depends>
                 </field>
+                <field id="request_description" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Request Description</label>
+                    <comment><![CDATA[Order number variable <strong class="colorRed">{order_number}</strong> with braces is required.]]></comment>
+                </field>
             </group>
         </section>
     </system>
