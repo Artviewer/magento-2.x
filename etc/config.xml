@@ -20,6 +20,7 @@
                 <sandbox_shop_id>a6a29002-dc68-4918-bc5d-51a6094b14a8</sandbox_shop_id>
                 <shop_pass>XChz3J8qrr</shop_pass>
                 <sandbox_shop_pass>XChz3J8qrr</sandbox_shop_pass>
+                <request_description>Payment {order_number}</request_description>
             </rozetkapay>
         </payment>
     </default>
