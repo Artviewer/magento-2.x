@@ -20,6 +20,7 @@ class Provider
     const SANDBOX_SHOP_ID_CONFIG_PATH = 'payment/rozetkapay/sandbox_shop_id';
     const SHOP_PASS_CONFIG_PATH = 'payment/rozetkapay/shop_pass';
     const SANDBOX_SHOP_PASS_CONFIG_PATH = 'payment/rozetkapay/sandbox_shop_pass';
+    const REQUEST_DESCRIPTION_CONFIG_PATH = 'payment/rozetkapay/request_description';
 
     /**
      * @var ScopeConfigInterface
@@ -138,5 +139,13 @@ class Provider
         }
 
         return $this->getConfig(self::SHOP_PASS_CONFIG_PATH);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestDescription()
+    {
+        return $this->getConfig(self::REQUEST_DESCRIPTION_CONFIG_PATH);
     }
 }
